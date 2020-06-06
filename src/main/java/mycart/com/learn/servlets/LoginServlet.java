@@ -51,13 +51,22 @@ public class LoginServlet extends HttpServlet {
 
 			HttpSession session = request.getSession();
 			if (user == null) {
-				//out.println("<h1>Invalid details</h1>");
-				session.setAttribute("message", "Invalid details!! try with another one");
+				// out.println("<h1>Invalid details</h1>");
+				session.setAttribute("err-message", "Invalid details!! try with another one");
 				response.sendRedirect("login.jsp");
 			} else {
-				//out.println("<h1>Welcome " + user.getUserName() + " </h1>");
+				// out.println("<h1>Welcome " + user.getUserName() + " </h1>");
 				session.setAttribute("message", "Welcome " + user.getUserName());
-				response.sendRedirect("login.jsp");
+
+				session.setAttribute("current-user", user);
+				if (user.getUserType().equals("admin")) {
+					response.sendRedirect("admin.jsp");
+				} else if (user.getUserType().equals("normal")) {
+					response.sendRedirect("normal.jsp");
+				} else {
+					//out.println("We have not identified user type ");
+					session.setAttribute("err-message", "We have not identified user type");
+				}
 			}
 
 		} catch (Exception e) {
