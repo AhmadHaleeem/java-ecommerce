@@ -39,7 +39,6 @@ public class RegisterServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 
 		try (PrintWriter out = response.getWriter()) {
-			// out.println("Register Servlet");
 			String userName = request.getParameter("user_name");
 			String userEmail = request.getParameter("user_email");
 			String userPassword = request.getParameter("user_password");
