@@ -14,12 +14,13 @@
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
 				<div class="card mt-3">
-					<%@include file="components/message.jsp"%>
+					
 					<div class="card-header custom-bg text-white text-center">
 						<h3>Login here</h3>
 					</div>
 					
 					<div class="card-body">
+						<%@include file="components/message.jsp"%>
 						<form action="LoginServlet" method="post">
 							<div class="form-group">
 								<label for="email">User Email</label> <input type="email"
