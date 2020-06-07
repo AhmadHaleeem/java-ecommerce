@@ -26,7 +26,7 @@
 </head>
 <body>
 	<%@include file="components/navbar.jsp"%>
-	<div class="container">
+	<div class="container admin">
 		
 		<div class="row mt-3">
 			<div class="col-md-4">
@@ -71,10 +71,10 @@
 		<div class="row mt-3">
 		
 			<div class="col-md-6">
-				<div class="card">
-					<div class="card-body text-center">
+				<div class="card" data-toggle="modal" data-target="#add-category-modal">
+					<div class="card-body text-center" >
 						<div class="container">
-							<img style="max-width: 120px"" class="img-fluid rounded-circle" src="img/keys.png" alt="user_icon">
+							<img style="max-width: 120px" class="img-fluid rounded-circle" src="img/keys.png" alt="user_icon">
 						</div>
 						<p class="mt-2">Click here to add a new category</p>
 						<h1 class="text-uppercase text-muted">Add Category</h1>
@@ -97,6 +97,42 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- Add category modal -->
+	
+	<!-- Modal -->
+	<div class="modal fade" id="add-category-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header custom-bg text-white">
+	        <h5 class="modal-title" id="exampleModalLabel">Fill category details</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form action="">
+	        	<div class="form-group">
+	        		<input class="form-control" type="text" name="catTitle" placeholder="Enter category title" required>
+	        	</div>
+	        	
+	        	<div class="form-group">
+	        		<textarea class="form-control" style="height:100px" name="catDescription" placeholder="Enter category description" required></textarea>
+	        	</div>
+	        	
+	        	<div class="container text-center">
+	        		<button class="btn btn-outline-success">Add Category</button>
+        		    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        	</div>
+	        	
+	        </form>
+	      </div>
+	     
+	    </div>
+	  </div>
+	</div>
+	
+	<!-- End category modal  -->
 
 </body>
 </html>
