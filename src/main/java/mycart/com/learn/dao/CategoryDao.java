@@ -1,10 +1,12 @@
 package mycart.com.learn.dao;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import mycart.com.learn.entities.Category;
 
@@ -27,6 +29,14 @@ public class CategoryDao {
 
 		return catId;
 
+	}
+
+	// fetch categories
+	public List<Category> getCategories() {
+		Session session = this.factory.openSession();
+		Query listQuery = session.createQuery("from Category");
+		List<Category> listCategories = listQuery.list();
+		return listCategories;
 	}
 
 }
