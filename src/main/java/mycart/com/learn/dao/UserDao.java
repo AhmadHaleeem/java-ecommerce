@@ -30,6 +30,8 @@ public class UserDao {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+		} finally {
+			System.out.println("DONE");
 		}
 
 		return user;

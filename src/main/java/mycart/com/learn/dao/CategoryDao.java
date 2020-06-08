@@ -39,4 +39,22 @@ public class CategoryDao {
 		return listCategories;
 	}
 
+	// fetch single category
+	public Category getCategoryById(int id) {
+		Category cat = null;
+		try {
+			Session session = this.factory.openSession();
+			cat = session.get(Category.class, id);
+
+			session.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			System.out.println("DONE");
+		}
+
+		return cat;
+
+	}
+
 }
