@@ -88,8 +88,14 @@
 
 								</div>
 								<footer class="card-footer">
-									<button class="btn custom-bg text-white">Add to cart</button>
-									<button class="btn btn-outline-success text-center"><%=product.getPriceAfterApplyingDiscount() + "&euro;" + "/-"%> <span class="text-secondary discount-label"> <%= product.getpPrice() + "&euro;" %> , <%= product.getpDiscount() %>% off</span> </button>
+									<button class="btn custom-bg text-white"
+										onclick="addToCart(<%=product.getpId()%> , '<%=product.getpName()%>' , <%=product.getPriceAfterApplyingDiscount()%>)">Add
+										to cart</button>
+									<button class="btn btn-outline-success text-center"><%=product.getPriceAfterApplyingDiscount() + "&euro;" + "/-"%>
+										<span class="text-secondary discount-label"> <%=product.getpPrice() + "&euro;"%>
+											, <%=product.getpDiscount()%>% off
+										</span>
+									</button>
 								</footer>
 							</div>
 
