@@ -15,8 +15,8 @@ function addToCart(pId, pName, price) {
 		
 		products.push(product);
 		localStorage.setItem("cart", JSON.stringify(products));
-		console.log("Product is added for the first time");
-
+		//console.log("Product is added for the first time");
+		showToast("Product is added to cart");
 	} else {
 		// cart is already present
 		let pCart = JSON.parse(cart);
@@ -32,7 +32,8 @@ function addToCart(pId, pName, price) {
 			})
 			
 			localStorage.setItem("cart", JSON.stringify(pCart));
-			console.log("Product quantity has increased");
+			//console.log("Product quantity has increased");
+			showToast(oldProduct.productName + " quantity is increased");
 		} else {
 			let product = {
 					productId : pId,
@@ -43,7 +44,8 @@ function addToCart(pId, pName, price) {
 				
 			pCart.push(product);
 			localStorage.setItem("cart", JSON.stringify(pCart));
-			console.log("Product is added successfully");
+			//console.log("Product is added successfully");
+			showToast("Product is added to cart");
 		}
 
 	}
@@ -115,12 +117,22 @@ function deleteItemFromCart(pId) {
 	let newCart = cart.filter(item => item.productId != pId);
 	localStorage.setItem("cart", JSON.stringify(newCart));
 	updateCart();
+	
+	showToast("This product is removed from cart");
 }
 
 window.onload = function() {
 	updateCart();
 };
 
+
+function showToast(content) {
+	$("#toast").addClass("display");
+	$("#toast").html(content);
+	setTimeout(() => {
+		$("#toast").removeClass("display");
+	}, 2000);
+}
 
 
 
