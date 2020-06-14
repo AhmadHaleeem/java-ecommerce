@@ -38,11 +38,23 @@ public class ProductDao {
 
 		return f;
 	}
-
+	
 	// fetch all products
 	public List<Product> getAllProducts() {
 		Session session = this.factory.openSession();
 		Query<Product> query = session.createQuery("from Product");
+		List<Product> list = query.list();
+
+		session.close();
+		return list;
+	}
+	
+	// fetch all products by categroy id
+	public List<Product> getProductsByCategoryId(int categoryId) {
+		Session session = this.factory.openSession();
+		Query<Product> query = session.createQuery("from Product as p where p.category.categoryId =: id");
+		query.setParameter("id", categoryId);
+		
 		List<Product> list = query.list();
 
 		session.close();

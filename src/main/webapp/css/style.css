@@ -15,3 +15,18 @@
 	background: #673ab7;
 	border-color: #673ab7;
 }
+
+.discount-label {
+	font-size: 10px !important;
+	font-style: italic !important;
+	/* text-decoration: line-through; */
+}
+
+.product-card:hover {
+	background: #e2e2e2;
+	cursor: pointer;
+}
+
+.discount-label:hover {
+	color: #fff !important;
+}

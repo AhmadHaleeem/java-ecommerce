@@ -20,66 +20,96 @@
 <body>
 	<%@include file="components/navbar.jsp"%>
 
-	<div class="row mt-3 mx-2">
-		<%
-			ProductDao productDao = new ProductDao(FactoryProvider.getFactory());
-			CategoryDao categoryDao = new CategoryDao(FactoryProvider.getFactory());
+	<div class="container-fluid">
 
-			List<Product> products = productDao.getAllProducts();
-			List<Category> categories = categoryDao.getCategories();
-		%>
+		<div class="row mt-3 mx-2">
+			<%
+				String cat = request.getParameter("category");
 
-		<!-- Display categories  -->
-		<div class="col-md-2">
-			<div class="list-group mt-4">
-				<a href="#" class="list-group-item list-group-item-action active">
-					All products </a>
-				<%
-					for (Category category : categories) {
-				%>
-				<a href="#" class="list-group-item list-group-item-action"><%=category.getCategoryTitle()%></a>
-				<%
-					}
-				%>
+				ProductDao productDao = new ProductDao(FactoryProvider.getFactory());
+				List<Product> listProducts = null;
+
+				if (cat == null) {
+					listProducts = productDao.getAllProducts();
+				} else if (cat == null || cat.trim().equals("all")) {
+					listProducts = productDao.getAllProducts();
+				} else {
+					int cId = Integer.parseInt(cat.trim());
+					listProducts = productDao.getProductsByCategoryId(cId);
+				}
+
+				CategoryDao categoryDao = new CategoryDao(FactoryProvider.getFactory());
+				List<Category> categories = categoryDao.getCategories();
+			%>
+
+			<!-- Display categories  -->
+			<div class="col-md-2">
+				<div class="list-group mt-4">
+					<a href="index.jsp?category=all"
+						class="list-group-item list-group-item-action active"> All
+						products </a>
+					<%
+						for (Category category : categories) {
+					%>
+					<a href="index.jsp?category=<%=category.getCategoryId()%>"
+						class="list-group-item list-group-item-action"><%=category.getCategoryTitle()%></a>
+					<%
+						}
+					%>
+
+				</div>
 
 			</div>
 
-		</div>
 
-
-		<div class="col-md-8">
-			<div class="row mt-4">
-				<div class="col-md-12">
-					<div class="card-columns">
-
+			<div class="col-md-8">
+				<div class="row mt-4">
+					<div class="col-md-12">
 						<%
-							for (Product product : products) {
+							if (listProducts.size() != 0) {
 						%>
+						<div class="card-columns">
 
-						<div class="card" style="overflow: hidden">
-							<div class="container text-center">
-							<img src="img/products/<%=product.getpPhoto()%>"
-								class="card-img-top m-2" style="max-height: 270px; max-width: 100%; width: auto" alt="<%=product.getpName()%>">
-							
-							</div>
-							<div class="card-body">
-								<h5 class="card-title"><%=product.getpName()%></h5>
-								<p class="card-text"><%=Helper.get10Words(product.getpDesc())%></p>
+							<%
+								for (Product product : listProducts) {
+							%>
 
+							<div class="card product-card" style="overflow: hidden">
+								<div class="container text-center">
+									<img src="img/products/<%=product.getpPhoto()%>"
+										class="card-img-top m-2"
+										style="max-height: 270px; max-width: 100%; width: auto"
+										alt="<%=product.getpName()%>">
+
+								</div>
+								<div class="card-body">
+									<h5 class="card-title"><%=product.getpName()%></h5>
+									<p class="card-text"><%=Helper.get10Words(product.getpDesc())%></p>
+
+								</div>
+								<footer class="card-footer">
+									<button class="btn custom-bg text-white">Add to cart</button>
+									<button class="btn btn-outline-success text-center"><%=product.getPriceAfterApplyingDiscount() + "&euro;" + "/-"%> <span class="text-secondary discount-label"> <%= product.getpPrice() + "&euro;" %> , <%= product.getpDiscount() %>% off</span> </button>
+								</footer>
 							</div>
-							<footer class="card-footer">
-								<button class="btn custom-bg text-white">Add to cart</button>
-								<button class="btn btn-outline-primary"><%=product.getpPrice() + "&euro;"%></button>
-							</footer>
+
+							<%
+								}
+							%>
+
 						</div>
-
+						<%
+							} else {
+						%>
+						<div class="alert alert-warning" role="alert">No products in
+							this category</div>
 						<%
 							}
 						%>
 					</div>
 				</div>
-			</div>
 
+			</div>
 		</div>
 	</div>
 

@@ -149,6 +149,13 @@ public class Product {
 		this.category = category;
 	}
 
+	// calculate price after discount
+	public int getPriceAfterApplyingDiscount() {
+		int dis = (int) ((this.getpDiscount() / 100.0) * this.getpPrice());
+
+		return this.getpPrice() - dis;
+	}
+
 	@Override
 	public String toString() {
 		return "Product [pId=" + pId + ", pName=" + pName + ", pDesc=" + pDesc + ", pPhoto=" + pPhoto + ", pPrice="
