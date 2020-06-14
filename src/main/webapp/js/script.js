@@ -15,7 +15,7 @@ function addToCart(pId, pName, price) {
 		
 		products.push(product);
 		localStorage.setItem("cart", JSON.stringify(products));
-		//console.log("Product is added for the first time");
+		// console.log("Product is added for the first time");
 		showToast("Product is added to cart");
 	} else {
 		// cart is already present
@@ -32,7 +32,7 @@ function addToCart(pId, pName, price) {
 			})
 			
 			localStorage.setItem("cart", JSON.stringify(pCart));
-			//console.log("Product quantity has increased");
+			// console.log("Product quantity has increased");
 			showToast(oldProduct.productName + " quantity is increased");
 		} else {
 			let product = {
@@ -44,7 +44,7 @@ function addToCart(pId, pName, price) {
 				
 			pCart.push(product);
 			localStorage.setItem("cart", JSON.stringify(pCart));
-			//console.log("Product is added successfully");
+			// console.log("Product is added successfully");
 			showToast("Product is added to cart");
 		}
 
@@ -64,7 +64,7 @@ function updateCart() {
 		$(".cart-body").html("<h3>Cart doesn't contain items </h3>");
 		$(".checkout-btn").addClass("disabled");
 	} else {
-		console.log("CART...")
+		// console.log("CART...")
 		
 		$(".cart-items").html(`(${cart.length})`);
 		let table = `
@@ -105,6 +105,7 @@ function updateCart() {
 				</tr>
 			</table>`;
 		$(".cart-body").html(table);
+		$(".checkout-btn").removeClass("disabled");
 	}
 	
 	
@@ -132,6 +133,13 @@ function showToast(content) {
 	setTimeout(() => {
 		$("#toast").removeClass("display");
 	}, 2000);
+}
+
+function goToCheckout() {
+	let checkoutVisibility = $('.checkout-btn').hasClass("disabled");
+	if (!checkoutVisibility) {
+		window.location = "checkout.jsp";
+	}
 }
 
 

@@ -49,4 +49,14 @@
     <servlet-name>ProductOperationServlet</servlet-name>
     <url-pattern>/ProductOperationServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CheckoutServlet</display-name>
+    <servlet-name>CheckoutServlet</servlet-name>
+    <servlet-class>mycart.com.learn.servlets.CheckoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CheckoutServlet</servlet-name>
+    <url-pattern>/CheckoutServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
