@@ -1,3 +1,5 @@
+<%@page import="java.util.Map"%>
+<%@page import="mycart.com.learn.helper.Helper"%>
 <%@page import="mycart.com.learn.entities.Category"%>
 <%@page import="java.util.List"%>
 <%@page import="mycart.com.learn.helper.FactoryProvider"%>
@@ -16,6 +18,13 @@
 			return;
 		}
 	}
+	
+	CategoryDao categoryDao = new CategoryDao(FactoryProvider.getFactory());
+	List<Category> categories = categoryDao.getCategories();
+	
+	// getting count
+	
+	Map<String,Long> map = Helper.getCounts(FactoryProvider.getFactory());
 %>
 
 
@@ -43,7 +52,7 @@
 						<div class="container">
 							<img style="max-width: 120px"" class="img-fluid rounded-circle" src="img/seo-and-web.png" alt="user_icon">
 						</div>
-						<h1>231</h1>
+						<h1><%= map.get("userCount") %></h1>
 						<h1 class="text-uppercase text-muted">Users</h1>
 					</div>
 				</div>
@@ -55,7 +64,7 @@
 						<div class="container">
 							<img style="max-width: 120px"" class="img-fluid rounded-circle" src="img/list.png" alt="user_icon">
 						</div>
-						<h1>22</h1>
+						<h1><%= categories.size() %></h1>
 						<h1 class="text-uppercase text-muted">Categories</h1>
 						
 					</div>
@@ -68,7 +77,7 @@
 						<div class="container">
 							<img style="max-width: 120px"" class="img-fluid rounded-circle" src="img/product.png" alt="user_icon">
 						</div>
-						<h1>63</h1>
+						<h1><%= map.get("productCount") %></h1>
 						<h1 class="text-uppercase text-muted">Products</h1>
 						
 					</div>
@@ -184,9 +193,6 @@
 	        		<select class="form-control" name="catId">
 	        			<option disabled selected>Select category</option>
 	        			<%
-	        				CategoryDao categoryDao = new CategoryDao(FactoryProvider.getFactory());
-	        				List<Category> categories = categoryDao.getCategories();
-	        				
 	        				for (Category category: categories) {
 	        			%>
 	        				<option value="<%= category.getCategoryId() %>"><%= category.getCategoryTitle() %></option>
