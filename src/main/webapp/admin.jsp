@@ -36,6 +36,11 @@
 <meta charset="ISO-8859-1">
 <title>Admin Panel</title>
 <%@include file="components/common_css_js.jsp"%>
+<style>
+	body {
+		background: #e2e2e2;
+	}
+</style>
 </head>
 <body>
 	<%@include file="components/navbar.jsp"%>
@@ -47,10 +52,10 @@
 		
 		<div class="row mt-3">
 			<div class="col-md-4">
-				<div class="card">
+				<div class="card" data-toggle="tooltip" data-placement="top" title="Number of users">
 					<div class="card-body text-center">
 						<div class="container">
-							<img style="max-width: 120px"" class="img-fluid rounded-circle" src="img/seo-and-web.png" alt="user_icon">
+							<img style="max-width: 120px" class="img-fluid rounded-circle" src="img/seo-and-web.png" alt="user_icon">
 						</div>
 						<h1><%= map.get("userCount") %></h1>
 						<h1 class="text-uppercase text-muted">Users</h1>
@@ -59,7 +64,7 @@
 			</div>
 			
 			<div class="col-md-4">
-				<div class="card">
+				<div class="card" data-toggle="tooltip" data-placement="top" title="Number of categories">
 					<div class="card-body text-center">
 						<div class="container">
 							<img style="max-width: 120px"" class="img-fluid rounded-circle" src="img/list.png" alt="user_icon">
@@ -72,7 +77,7 @@
 			</div>
 			
 			<div class="col-md-4">
-				<div class="card">
+				<div class="card" data-toggle="tooltip" data-placement="top" title="Number of products">
 					<div class="card-body text-center">
 						<div class="container">
 							<img style="max-width: 120px"" class="img-fluid rounded-circle" src="img/product.png" alt="user_icon">
@@ -104,7 +109,7 @@
 				<div class="card" data-toggle="modal" data-target="#add-product-modal">
 					<div class="card-body text-center">
 						<div class="container">
-							<img style="max-width: 120px"" class="img-fluid rounded-circle" src="img/plus.png" alt="user_icon">
+							<img style="max-width: 120px" class="img-fluid rounded-circle" src="img/plus.png" alt="user_icon">
 						</div>
 						<p class="mt-2">Click here to add a new product</p>
 						<h1 class="text-uppercase text-muted">Add Product</h1>
@@ -113,8 +118,25 @@
 				</div>
 			</div>
 		</div>
+		
+		<div class="row mt-3">
+			<div class="col-md-12">
+				<div onclick="window.location = 'view_products.jsp'" class="card" data-toggle="tooltip" data-placement="top" title="Click here to view all the products">
+					<div class="card-body text-center">
+						<div class="container">
+							<img style="max-width: 120px;" class="img-fluid rounded-circle" src="img/view.png" alt="view_icon">
+						</div>
+						<p class="mt-2">Click here to view all products</p>
+						<h1 class="text-uppercase text-muted">View Products</h1>
+						
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	
+	
+
 	<!-- Add category modal -->
 	
 	<!-- Modal -->
@@ -220,6 +242,12 @@
 	</div>
 	
 	<!-- End product modal  -->
-
+	
+	<script>
+		$(function () {
+		  $('[data-toggle="tooltip"]').tooltip()
+		})
+	</script>
+	
 </body>
 </html>

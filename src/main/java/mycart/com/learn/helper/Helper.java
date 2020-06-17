@@ -1,5 +1,6 @@
 package mycart.com.learn.helper;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,5 +43,21 @@ public class Helper {
 		session.close();
 
 		return map;
+	}
+	
+	public static boolean deleteFile(String path) {
+		boolean f = false;
+
+		try {
+			File file = new File(path);
+			f = file.delete();
+
+			f = true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return f;
 	}
 }

@@ -20,6 +20,7 @@ import mycart.com.learn.dao.ProductDao;
 import mycart.com.learn.entities.Category;
 import mycart.com.learn.entities.Product;
 import mycart.com.learn.helper.FactoryProvider;
+import mycart.com.learn.helper.Helper;
 
 @MultipartConfig
 public class ProductOperationServlet extends HttpServlet {
@@ -42,7 +43,8 @@ public class ProductOperationServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
-
+		CategoryDao catDao = new CategoryDao(FactoryProvider.getFactory());
+		
 		try (PrintWriter out = response.getWriter()) {
 			HttpSession session = request.getSession();
 			String op = request.getParameter("operation");
@@ -82,7 +84,7 @@ public class ProductOperationServlet extends HttpServlet {
 				product.setpQuantity(productQuantity);
 				product.setpPhoto(part.getSubmittedFileName());
 
-				CategoryDao catDao = new CategoryDao(FactoryProvider.getFactory());
+				
 				Category categoryById = catDao.getCategoryById(categoryId);
 
 				product.setCategory(categoryById);
@@ -112,6 +114,62 @@ public class ProductOperationServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 
+			} else if (op.trim().equals("updateProduct")) {
+				int productId = Integer.parseInt(request.getParameter("productId"));
+				String productName = request.getParameter("pName");
+				String productDescription = request.getParameter("pDescription");
+				int productPrice = Integer.parseInt(request.getParameter("pPrice"));
+				int productDiscount = Integer.parseInt(request.getParameter("pDiscount"));
+				int productQuantity = Integer.parseInt(request.getParameter("pQuantity"));
+				int categoryId = Integer.parseInt(request.getParameter("catId"));
+				
+				Product product = new Product();
+				product.setpName(productName);
+				product.setpDesc(productDescription);
+				product.setpPrice(productPrice);
+				product.setpDiscount(productDiscount);
+				product.setpQuantity(productQuantity);
+				Part part = request.getPart("pPic");
+				String submittedFileName = part.getSubmittedFileName();
+				
+				String oldFile = product.getpPhoto();
+				product.setpPhoto(submittedFileName);
+				
+				Category categoryById = catDao.getCategoryById(categoryId);
+				product.setCategory(categoryById);
+				
+				// UPDATE PRODUCT DATA
+				ProductDao productDao = new ProductDao(FactoryProvider.getFactory());
+				
+				String path = request.getRealPath("img") + File.separator + "products" + File.separator
+						+ part.getSubmittedFileName();
+				try {
+					FileOutputStream fos = new FileOutputStream(path);
+					InputStream is = part.getInputStream();
+					// reading data
+					byte[] data = new byte[is.available()];
+					is.read(data);
+					// writing data
+					fos.write(data);
+					fos.close();
+
+					Helper.deleteFile(oldFile);
+					productDao.updateProduct(productId, product);
+
+					session.setAttribute("message", "Product updated successfully..");
+					response.sendRedirect("view_products.jsp");
+					return;
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			
+			} else if (op.trim().equals("deleteProduct")) {
+				int productId = Integer.parseInt(request.getParameter("deletedProduct"));
+				ProductDao productDao = new ProductDao(FactoryProvider.getFactory());
+				
+				productDao.deleteProduct(productId);
+				session.setAttribute("message", "Product deleted successfully..");
+				response.sendRedirect("view_products.jsp");
 			}
 
 		} catch (Exception e) {

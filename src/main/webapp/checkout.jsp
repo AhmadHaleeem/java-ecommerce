@@ -60,7 +60,7 @@
 						  	
 						  	<div class="container text-center">
 						  		<button class="btn btn-outline-success">Order now</button>
-						  		<button class="btn btn-outline-primary">Continue shopping</button>
+						  		<button onclick="window.location='index.jsp'" class="btn btn-outline-primary">Continue shopping</button>
 						  	</div>
 						    
 						</form>

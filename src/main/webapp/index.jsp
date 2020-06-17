@@ -73,7 +73,7 @@
 							<%
 								for (Product product : listProducts) {
 							%>
-
+						
 							<div class="card product-card" style="overflow: hidden">
 								<div class="container text-center">
 									<img src="img/products/<%=product.getpPhoto()%>"
@@ -96,8 +96,11 @@
 											, <%=product.getpDiscount()%>% off
 										</span>
 									</button>
+									
+									<button class="btn btn-outline-info text-center" onclick='window.location = "product.jsp?id=" + <%= product.getpId() %>'>See more</button>
 								</footer>
 							</div>
+							 
 
 							<%
 								}
